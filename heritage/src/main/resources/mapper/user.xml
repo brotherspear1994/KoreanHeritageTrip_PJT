@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.heritage.model.mapper.UserMapper">
+
+	<select id="login" parameterType="User" resultType="User">
+		select
+		user_name, user_id, auth_key
+		from user
+		where user_id = #{user_id} and
+		user_password = #{user_password}
+	</select>
+
+	<select id="userInfo" parameterType="String" resultType="User">
+		select
+		user_id, user_name, user_password, user_phone, user_no
+		from user
+		where user_id =
+		#{user_id}
+	</select> 
+
+	<select id="findId" parameterType="User" resultType="String">
+		select
+		user_id
+		from user
+		where user_name = #{user_name} and
+		user_phone =
+		#{user_phone}
+	</select>
+
+	<select id="findPwd" parameterType="User" resultType="String">
+		select
+		user_password
+		from user
+		where user_id = #{user_id} and
+		user_name =
+		#{user_name}
+	</select>
+
+	<update id="modifyPwd" parameterType="User">
+		update user
+		set
+		user_password = #{user_password}
+		where user_id = #{user_id}
+		and
+		user_name = #{user_name}
+	</update>
+	
+	<update id="alterAuthKey" parameterType="Map">
+		update user
+		set auth_key
+		= #{auth_key}
+		where user_id = #{user_id}
+	</update>
+
+	<select id="getAuthKey" parameterType="Map" resultType="String">
+		select user_id
+		from user
+		where user_id = #{user_id} and
+		auth_key = #{auth_key}
+	</select>
+
+	<insert id="signUp" parameterType="User">
+		insert user (user_no,
+		user_id, user_name, user_password, user_phone, auth_key)
+		values (0, #{user_id}, #{user_name}, #{user_password}, #{user_phone}, #{auth_key})
+	</insert>
+
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		select count(user_no)
+		from user
+		<if test="word != null and word != ''">
+			<if test="key == 'userid'">
+				where user_id like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'userid'">
+				where ${key} = #{word}
+			</if>
+		</if>
+	</select>
+
+	<update id="modifyUser" parameterType="User">
+		update user
+		set user_name =
+		#{user_name}, user_password = #{user_password},
+		user_phone =
+		#{user_phone}
+		where user_no = #{user_no}
+	</update>
+
+	<delete id="deleteUser" parameterType="int">
+		delete from user
+		where
+		user_no = #{user_no}
+	</delete>
+	
+	<select id="getPassword" parameterType="String" resultType="String">
+		select user_password
+		from user
+		where user_id = #{user_id}
+	</select>
+
+</mapper>

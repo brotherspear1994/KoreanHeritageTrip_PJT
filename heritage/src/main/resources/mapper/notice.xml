@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.heritage.model.mapper.NoticeMapper">
+	<insert id="writeNoticepage" parameterType="notice">
+<!-- 		INSERT INTO notice (notice_no, user_no, notice_create_date, notice_modify_date, notice_title, notice_content) -->
+<!-- 		VALUES (#{notice_no}, #{user_no}, now(), 0, #{notice_title}, #{notice_content}); -->
+		INSERT INTO notice (user_no, notice_create_date, notice_modify_date, notice_title, notice_content)
+		VALUES (#{user_no}, now(), now(), #{notice_title}, #{notice_content})			
+	</insert>
+	
+	<select id="listNoticepage" parameterType="map" resultType="notice">
+		SELECT * FROM notice;
+	
+	</select>
+	
+	<select id="getNoticepage" parameterType="int" resultType="notice">
+		SELECT * FROM notice
+		WHERE notice_no = #{notice_no};
+	</select>	
+
+	<update id="modifyNoticepage" parameterType="notice">
+		UPDATE notice
+		SET notice_title = #{notice_title}, notice_content = #{notice_content}
+		WHERE notice_no = #{notice_no}
+	</update>
+	
+	<delete id="deleteNoticepage" parameterType="int">
+		DELETE FROM NOTICE
+		WHERE notice_no = #{notice_no}
+	</delete>	
+
+</mapper>

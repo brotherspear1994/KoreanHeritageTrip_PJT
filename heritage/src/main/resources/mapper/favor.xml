@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.heritage.model.mapper.FavorMapper">
+
+	<insert id="getCtcd" parameterType="Favor">
+		insert into favor (
+		favor_no,
+		user_no,
+		ccba_ctcd_nm1,
+		ccba_ctcd_nm2,
+		ccba_ctcd_nm3
+		)
+		value (
+		0,
+		#{user_no},
+		#{ccba_ctcd_nm1},
+		#{ccba_ctcd_nm2},
+		#{ccba_ctcd_nm3}
+		)
+	</insert>
+
+	<update id="updateCtcd" parameterType="Favor">
+		update favor
+		set ccba_ctcd_nm1
+		=
+		#{ccba_ctcd_nm1},
+		ccba_ctcd_nm2 = #{ccba_ctcd_nm2},
+		ccba_ctcd_nm3 =
+		#{ccba_ctcd_nm3}
+		where user_no = #{user_no}
+	</update>
+
+	<update id="getBcode" parameterType="Favor">
+		update favor
+		set bcode_name1
+		=
+		#{bcode_name1},
+		bcode_name2 = #{bcode_name2},
+		bcode_name3 =
+		#{bcode_name3}
+		where user_no = #{user_no}
+	</update>
+
+	<update id="getCcce" parameterType="Favor">
+		update favor
+		set ccce_name1 =
+		#{ccce_name1},
+		ccce_name2 = #{ccce_name2},
+		ccce_name3 = #{ccce_name3}
+		where user_no = #{user_no}
+	</update>
+
+	<select id="getFavor" parameterType="int" resultType="int">
+	select count(*)
+	from favor
+	where user_no = #{user_no};
+	</select>
+
+	<select id="listRecommend" parameterType="int"
+		resultType="Heritage">
+		select *
+		from heritage h, favor f
+		where f.user_no =
+		#{user_no}
+		and (h.ccba_ctcd_nm = f.ccba_ctcd_nm1 or h.ccba_ctcd_nm =
+		f.ccba_ctcd_nm2
+		or h.ccba_ctcd_nm = f.ccba_ctcd_nm3)
+		and (h.ccce_name
+		like concat('%',f.ccce_name1,'%') or h.ccce_name like
+		concat('%',f.ccce_name2,'%') or h.ccce_name like
+		concat('%',f.ccce_name3,'%'))
+		and (h.bcode_name like
+		concat('%',f.bcode_name1,'%') or h.bcode_name like
+		concat('%',f.bcode_name2,'%') or h.bcode_name like
+		concat('%',f.bcode_name3,'%'))
+		order by rand() limit 15;
+	</select>
+	
+	<delete id="deleteInfo" parameterType="int">
+		delete from favor
+		where
+		user_no = #{user_no}
+	</delete>
+	
+</mapper>

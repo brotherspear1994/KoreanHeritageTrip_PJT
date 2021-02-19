@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.heritage.model.mapper.HeritageMapper">
+	<select id="listHeritage" parameterType="String"
+		resultType="Marker">
+		select *
+		from marker
+		where longitude != '0'
+		<if test="word != null and word != ''">
+			and (ccba_mnm like concat('%', #{word}, '%')
+			or ccba_ctcd_nm like concat('%', #{word}, '%')
+			or ccsi_name like concat('%', #{word}, '%'))
+		</if>
+		order by rand() limit 1000;
+	</select>
+
+	<select id="getHeritage" parameterType="map"
+		resultType="Heritage">
+		select *
+		from heritage
+		where ccba_asno = #{asno}
+		and ccba_ctcd = #{ctcd}
+		and ccba_kdcd = #{kdcd}
+		order by rand() limit 1000;
+	</select>
+</mapper>
