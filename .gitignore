@@ -1,4 +1,4 @@
-fronted/src/config/
+config/*.js
 .DS_Store
 node_modules
 /dist
