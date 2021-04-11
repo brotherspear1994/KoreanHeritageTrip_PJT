@@ -61,6 +61,7 @@
 <script>
 import VueDaumMap from 'vue-daum-map';
 import { heritages } from "@/api/heritage.js";
+import { KAKAO_MAP_KEY } from "@/api/heritage.js";
 // 문화재 정보 API 상세 정보 요청을 위한 세팅
 import axios from 'axios';
 import { API_BASE_URL } from '@/config/index.js';
@@ -72,7 +73,7 @@ export default {
     },
     data: () => ({
         // 카카오맵을 위한 data instances
-        appKey: '2e4b87e7a16709ce4966d35d9caaad46',
+        appKey: KAKAO_MAP_KEY,
         center: { lat: 36.2683, lng: 127.6358 }, // 지도의 중심 좌표
         level: 13, 
         mapTypeId: VueDaumMap.MapTypeId.NORMAL,
