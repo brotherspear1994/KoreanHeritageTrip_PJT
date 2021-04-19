@@ -1,3 +1,6 @@
+### application.properties 분리 ###
+application.properties
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
