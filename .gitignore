@@ -1,4 +1,5 @@
 ### application.properties 분리 ###
+application
 application.properties
 
 config/*.js
