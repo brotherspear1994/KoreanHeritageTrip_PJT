@@ -1,5 +1,4 @@
 ### application.properties 분리 ###
-application
 application.properties
 
 HELP.md
