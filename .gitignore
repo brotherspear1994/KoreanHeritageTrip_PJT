@@ -1,6 +1,3 @@
-### application.properties 분리 ###
-application.properties
-
 config/*.js
 
 .DS_Store
